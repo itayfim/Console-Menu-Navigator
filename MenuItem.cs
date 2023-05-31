@@ -1,14 +1,16 @@
-﻿namespace Ex04.Menus.Interfaces
+﻿namespace Ex04.Menus.Delegates
 {
     public abstract class MenuItem
     {
         public string Title { get; set; }
-        protected readonly IButton r_PreviousMenu;
+        protected MenuItem m_MenuListener;
 
-        public MenuItem(string i_Title, IButton i_Parent)
+        public MenuItem(string i_Title, MenuItem i_MenuListener)
         {
-            r_PreviousMenu = i_Parent;
             Title = i_Title;
+            m_MenuListener = i_MenuListener;
         }
+
+        internal abstract void OnChoice();
     }
 }
