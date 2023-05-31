@@ -1,24 +1,27 @@
-﻿namespace Ex04.Menus.Delegates
+﻿namespace Ex04.Menus.Interfaces
 {
-    public class MainMenu 
+    public class MainMenu
     {
-        private SubMenu m_RootMenu;
+        private SubMenu m_MainMenu;
 
-        public MainMenu(string i_Title)
+        internal SubMenu TheMainMenu
         {
-            m_RootMenu = new SubMenu(i_Title, m_RootMenu);
+            get { return m_MainMenu; }
         }
 
-        public SubMenu RootMenu { get { return m_RootMenu; } }
+        public void AddItem(MenuItem i_MenuItemToAdd)
+        {
+            m_MainMenu.AddItem(i_MenuItemToAdd);
+        }
+
+        public MainMenu(string i_MainTitle)
+        {
+            m_MainMenu = new SubMenu(i_MainTitle, this);
+        }
 
         public void Show()
         {
-            m_RootMenu.OnChoice();
-        }
-
-        public void AddMenuItem(MenuItem i_MenuToAdd)
-        {
-            m_RootMenu.AddMenuItem(i_MenuToAdd);
+            (m_MainMenu as IButton).pressed();
         }
     }
 }
